@@ -32,4 +32,23 @@ jobs:
      with:
       name: 'angular-dist'
       path: 'dist/'
-    
+
+ deploy:
+   name: Deploy to web app
+   needs: build
+   runs-on: ubuntu-latest
+   steps:
+   - name: download build artifacts
+     uses: actions/download-artifact@v4.3.0
+     with:
+       name: angular-dist
+       path: ./dist
+
+   - name: Deploy to azure
+     uses: azure/webapps-deploy@v2
+     with:
+        app-name: richa_ang_git
+        publish-profile: ${{ secrets.AZ_WEB_PUBLISH_PROFILE}}
+        package: ./dist
+     
+   
