@@ -47,7 +47,7 @@ jobs:
    - name: Deploy to azure
      uses: azure/webapps-deploy@v2
      with:
-        app-name: richa_ang_git
+        app-name: richa-git
         publish-profile: ${{ secrets.AZ_WEB_PUBLISH_PROFILE}}
         package: ./dist
      
