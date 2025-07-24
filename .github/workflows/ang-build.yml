@@ -1,0 +1,36 @@
+name: angular-test-build
+
+on:
+  push:
+    branches: [main]
+jobs:
+ build:
+   runs-on: ubuntu-latest
+   steps:
+   - name: checkout code
+     uses: actions/checkout@v4.2.2
+
+   - name: node installer
+     uses: actions/setup-node@v3.9.1
+     with:
+      node-version: '16'
+      cache: 'npm'
+      
+   - name: npm install
+     run: npm ci
+     
+   - name: lint code
+     run: npm run lint
+
+   - name: run test
+     run: npm run test -- --watch=false --browsers=ChromeHeadless
+
+   - name: npm build
+     run: npm run build:prod
+
+   -name: upload artifacts
+    uses: actions/upload-artifact@v4.6.2
+    with:
+      name: angular-dist
+      path: dist/
+    
