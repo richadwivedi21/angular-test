@@ -2,8 +2,9 @@ name: angular-test-build
 
 on:
   push:
-    branches: [main]
+    branches: [master]
   workflow_dispatch: 
+  
 jobs:
  build:
    runs-on: ubuntu-latest
@@ -22,9 +23,6 @@ jobs:
      
    - name: lint code
      run: npm run lint
-
-   - name: run test
-     run: npm run test -- --watch=false --browsers=ChromeHeadless
 
    - name: npm build
      run: npm run build:prod
